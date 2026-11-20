@@ -1,0 +1,48 @@
+#!/usr/sbin/nft -f
+# 생성 파일 — deploy.conf 를 고치고 render.sh 로 다시 만드세요.
+table inet secgw
+delete table inet secgw
+
+table inet secgw {
+	set mgmt      { type ipv4_addr; flags interval; elements = { ${MGMT_NET} } }
+	set whitelist { type ipv4_addr; flags interval; ${WHITELIST_ELEMENTS} }
+
+	# 차단 목록 — 시간이 지나면 자동으로 풀림
+	set ddos_block { type ipv4_addr; flags timeout; }        # R1·R2 임계값 룰이 넣음
+	set ai_block   { type ipv4_addr; flags timeout; }        # ips-ai · ddos-ai 가 넣음
+
+	# 임계값 룰 계산용 (IP별 상태)
+	set r1_rate { type ipv4_addr; flags dynamic, timeout; timeout 1m; }
+	set r2_conn { type ipv4_addr; flags dynamic; }
+
+	chain input {
+		type filter hook input priority filter - 10; policy accept;
+		iif "lo" accept
+		ip saddr @mgmt tcp dport ${SSH_PORT} accept
+		iifname != "${WAN_IFACE}" accept          # 내부(백엔드) 쪽 인터페이스는 검사하지 않음
+		ct state invalid drop
+
+		# 예외 IP: 차단 목록·임계값 룰은 건너뛰고 IPS 검사만
+		ip saddr @whitelist goto ips
+
+		ip saddr @ddos_block counter drop
+		ip saddr @ai_block   counter drop
+
+		# R1 — 초당 새 연결 수 (iptables hashlimit 과 같은 방식)
+		tcp dport { ${HTTP_PORT}, ${HTTPS_PORT} } ct state new \
+			add @r1_rate { ip saddr limit rate over ${DDOS_RATE_PER_SEC}/second burst ${DDOS_BURST} packets } \
+			add @ddos_block { ip saddr timeout ${DDOS_BLOCK_MINUTES}m } counter drop comment "R1 new-conn rate"
+
+		# R2 — 동시 연결 수 (iptables connlimit 과 같은 방식)
+		tcp dport { ${HTTP_PORT}, ${HTTPS_PORT} } ct state new \
+			add @r2_conn { ip saddr ct count over ${DDOS_CONN_MAX} } \
+			add @ddos_block { ip saddr timeout ${DDOS_BLOCK_MINUTES}m } counter reject with tcp reset comment "R2 concurrent"
+
+		goto ips
+	}
+
+	# IPS — Suricata 인라인 검사 (Suricata가 멈추면 bypass 로 통과)
+	chain ips {
+		meta l4proto { tcp, udp } queue num ${IPS_QUEUE} bypass
+	}
+}

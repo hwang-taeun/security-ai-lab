@@ -1,0 +1,36 @@
+# 생성 파일 — deploy.conf 를 고치고 render.sh 로 다시 만드세요.
+{
+	order coraza_waf first
+	admin off
+	${CADDY_GLOBAL_TLS}
+}
+
+${CADDY_SITE} {
+	bind ${SERVICE_IP}
+
+	# ① WAF 룰: OWASP Coraza + CRS (1단계에서 비교한 엔진·룰)
+	coraza_waf {
+		load_owasp_crs
+		directives `
+			Include @coraza.conf-recommended
+			Include @crs-setup.conf.example
+			Include @owasp_crs/*.conf
+			SecRuleEngine On
+			SecAuditEngine RelevantOnly
+			SecAuditLogParts ABHZ
+			SecAuditLog ${SECGW_LOG}/coraza-audit.log
+			SecAction "id:900000,phase:1,pass,nolog,setvar:tx.blocking_paranoia_level=${CRS_PARANOIA}"
+			SecAction "id:900001,phase:1,pass,nolog,setvar:tx.detection_paranoia_level=${CRS_PARANOIA}"
+		`
+	}
+
+	# ② WAF AI: 룰을 통과한 요청만 waf-ai 게이트가 한 번 더 판정 → 백엔드로 전달
+	reverse_proxy ${WAF_AI_LISTEN} {
+		header_up X-Secgw-Client {remote_host}
+	}
+
+	log {
+		output file ${SECGW_LOG}/caddy-access.log
+		format json
+	}
+}

@@ -1,0 +1,44 @@
+{
+  "service": "waf-ai",
+  "created_utc": "2026-11-20T05:58:33Z",
+  "dataset": "HTTP DATASET CSIC 2010",
+  "versions": {
+    "python": "3.13.16",
+    "numpy": "2.4.6",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.6.1",
+    "torch": "2.14.1+cu130",
+    "gpu": "Tesla T4",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.32.0"
+  },
+  "input": {
+    "text": "f'{method} {path_and_query} {body}' + ' || ' + unquote_plus(같은 문자열, encoding='latin-1')",
+    "encoding": "latin-1 바이트 + 1 (0은 빈칸), 앞 512바이트",
+    "max_len": 512
+  },
+  "thresholds": {
+    "block": 0.9891854524612427,
+    "block_fpr_1pct": 0.5132092237472534,
+    "explain_lr_fpr_1pct": 0.3702456522704557
+  },
+  "expected_test": {
+    "B Char-CNN @ FPR 1%": {
+      "detection_rate": 0.9721,
+      "false_positive_rate": 0.0089
+    },
+    "B Char-CNN @ FPR 0.1%": {
+      "detection_rate": 0.8922,
+      "false_positive_rate": 0.0003
+    },
+    "B Char-CNN @ CRS PL1 FPR (0.03%)": {
+      "detection_rate": 0.7831,
+      "false_positive_rate": 0.0
+    }
+  },
+  "onnx_check_max_diff": 2.771615982055664e-06,
+  "files": {
+    "char_cnn.onnx": "aa0175afedafed4306be99ec2f94351fa8c6c6723b49285545439bfd7f3d0620",
+    "tfidf_lr.joblib": "61be9fdc0f68bfa3817876dea4007831bcbd18b16fa329e1914542328beb2322"
+  }
+}

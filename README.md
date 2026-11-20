@@ -14,6 +14,8 @@ WAF · IPS · DDoS 세 단계로 나눠 진행했습니다.
 | [2. IPS](ips/) | Suricata 8.0.8 + ET Open | CIC-IDS2017 금요일 pcap 8.8 GB | 0.1% (ET 심각도 1–2) | 99.7% (오탐 0.02%) | 경보 141만 건 중 99.9%가 패킷 품질 경보. 학습에서 뺀 공격은 AI도 0–26% |
 | [3. DDoS](ddos/) | 임계값 룰 (hashlimit·connlimit 방식) | CIC-IDS2017 수·금 pcap 22 GB | 97.8% (오탐 13.9%) | 97.8% (오탐 0.09%) | 느린 공격은 동시 연결 룰로만 잡힘. 룰 오탐의 80%가 내부 서버 1대 |
 
+| [4. 실서비스](deploy/) | nftables · Suricata · Coraza + AI 서비스 3개 | Rocky 9 한 장비 | — | — | 장비별 값은 `deploy.conf` 하나, 서비스별 CPU·메모리 상한(systemd), 모델 이식 검증(해시·버전·특성 일치) |
+
 **결론**: 룰은 시그니처가 있는 공격과 양으로 드러나는 공격을 학습 없이 잡고 이유를 설명할 수 있습니다.
 지도 학습 AI는 본 적 있는 공격을 매우 잘 잡지만, 처음 보는 공격은 배운 공격과 닮았을 때만 잡습니다 (IPS 0–26% vs DDoS 88–100%).
 대체가 아니라 함께 쓰는 관계입니다.
@@ -24,8 +26,11 @@ WAF · IPS · DDoS 세 단계로 나눠 진행했습니다.
 security-ai-lab/
 ├── waf/    waf_lab_phase1.ipynb   + results/  (비교표, ROC, 공격 계열별, 사례 CSV)
 ├── ips/    ids_lab_phase2.ipynb   + results/  (비교표, 공격 종류별, 오탐 경보 목록, 처음 보는 공격)
-└── ddos/   ddos_lab_phase3.ipynb  + results/  (비교표, 웹서버 관점, 탐지 시간, 구간 데이터)
+├── ddos/   ddos_lab_phase3.ipynb  + results/  (비교표, 웹서버 관점, 탐지 시간, 구간 데이터)
+└── deploy/ 한 장비 실서비스 구성 — deploy.conf, render.sh, install.sh, secgw.sh, ai/(AI 서비스), models/, tests/
 ```
+
+각 노트북의 마지막 셀은 학습한 모델을 `*_model_bundle.zip` 으로 내보냅니다 (장비 이식용). 자세한 내용은 [deploy/README.md](deploy/README.md).
 
 각 `results/summary.json`에 라이브러리·엔진 버전, 룰셋 해시, 임계값, 전체 수치가 기록돼 있습니다.
 

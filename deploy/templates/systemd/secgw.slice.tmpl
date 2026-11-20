@@ -1,0 +1,9 @@
+# 생성 파일 — deploy.conf 의 TOTAL_CPU / TOTAL_MEM
+[Unit]
+Description=secgw 보안 게이트웨이 전체 자원 상한
+
+[Slice]
+CPUAccounting=yes
+MemoryAccounting=yes
+CPUQuota=${TOTAL_CPU}
+MemoryMax=${TOTAL_MEM}

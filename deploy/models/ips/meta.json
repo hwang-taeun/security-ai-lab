@@ -1,0 +1,108 @@
+{
+  "service": "ips-ai",
+  "created_utc": "2026-11-20T06:09:29Z",
+  "dataset": "CIC-IDS2017 Friday",
+  "versions": {
+    "python": "3.13.16",
+    "numpy": "2.4.6",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.6.1",
+    "torch": "2.14.1+cu130",
+    "gpu": "Tesla T4",
+    "suricata": "8.0.8 RELEASE"
+  },
+  "ruleset_at_training": {
+    "file": "suricata.rules",
+    "enabled_rules": 53582,
+    "sha256": "c4c0f946deaabbd6",
+    "fetched_utc": "2026-11-20 06:01"
+  },
+  "features": [
+    "proto",
+    "dest_port",
+    "src_port_eph",
+    "pkts_ts",
+    "pkts_tc",
+    "bytes_ts",
+    "bytes_tc",
+    "duration",
+    "bpp_ts",
+    "bpp_tc",
+    "pkt_ratio",
+    "flags_ts",
+    "flags_tc",
+    "app_proto",
+    "state",
+    "reason",
+    "tcp_state",
+    "pps"
+  ],
+  "categories": {
+    "app_proto": [
+      "dcerpc",
+      "dns",
+      "failed",
+      "ftp",
+      "ftp-data",
+      "http",
+      "krb5",
+      "ldap",
+      "mdns",
+      "none",
+      "ntp",
+      "smb",
+      "ssh",
+      "tls"
+    ],
+    "state": [
+      "closed",
+      "established",
+      "new"
+    ],
+    "reason": [
+      "shutdown",
+      "tcp_reuse",
+      "timeout"
+    ],
+    "tcp_state": [
+      "",
+      "close_wait",
+      "closed",
+      "established",
+      "fin_wait1",
+      "fin_wait2",
+      "last_ack",
+      "syn_recv",
+      "syn_sent",
+      "time_wait"
+    ]
+  },
+  "proto_num": {
+    "TCP": 6,
+    "UDP": 17,
+    "ICMP": 1
+  },
+  "input": "Suricata eve.json 의 event_type=flow 한 건 = 한 판정",
+  "thresholds": {
+    "block": 0.4055534275584436,
+    "block_fpr_1pct": 6.502266491540792e-05
+  },
+  "expected_test": {
+    "A GBDT @ FPR 1%": {
+      "detection_rate": 1.0,
+      "false_positive_rate": 0.0102
+    },
+    "A GBDT @ FPR 0.1%": {
+      "detection_rate": 0.9978,
+      "false_positive_rate": 0.0009
+    },
+    "A GBDT @ 룰과 같은 FPR (0.179%)": {
+      "detection_rate": 0.9986,
+      "false_positive_rate": 0.00163
+    }
+  },
+  "note": "지도 학습 모델이라 학습에 없던 공격 종류는 잘 못 잡음 (14번 표). 룰(Suricata)과 함께 사용",
+  "files": {
+    "gbdt.joblib": "6396285e2389e35117f0e70054ee1103c5e36781fa70b2ddbaa4399f3a9448d6"
+  }
+}

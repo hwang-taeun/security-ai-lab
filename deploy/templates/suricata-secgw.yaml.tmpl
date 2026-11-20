@@ -1,0 +1,28 @@
+%YAML 1.1
+---
+# 생성 파일 — deploy.conf 를 고치고 render.sh 로 다시 만드세요.
+# /etc/suricata/suricata.yaml 위에 --include 로 덮어씁니다. include 는 최상위 항목을 통째로 바꾸므로
+# 여기에는 통째로 바꿔도 되는 항목만 두고, HOME_NET 같은 하위 값은 secgw-ips.service 의 --set 으로 넣습니다.
+default-rule-path: /var/lib/suricata/rules
+rule-files:
+  - suricata.rules
+
+# 인라인(NFQUEUE): nftables 가 넘긴 패킷을 검사해 통과/차단. Suricata가 죽어도 통과(bypass)
+nfq:
+  mode: accept
+  fail-open: yes
+
+default-log-dir: ${SECGW_LOG}
+outputs:
+  - fast:
+      enabled: no
+  - eve-log:
+      enabled: yes
+      filetype: regular
+      filename: eve.json
+      types:
+        - alert:
+            tagged-packets: no
+        - flow
+  - stats:
+      enabled: no

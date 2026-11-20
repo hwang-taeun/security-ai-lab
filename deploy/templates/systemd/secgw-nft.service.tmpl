@@ -1,0 +1,14 @@
+[Unit]
+Description=secgw nftables 규칙 (차단 목록, R1·R2 임계값, IPS 큐)
+Before=secgw-ips.service secgw-waf.service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/sbin/nft -f ${SECGW_ETC}/secgw.nft
+ExecStop=/usr/sbin/nft delete table inet secgw
+
+[Install]
+WantedBy=multi-user.target

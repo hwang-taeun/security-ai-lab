@@ -1,0 +1,20 @@
+[Unit]
+Description=secgw IPS — Suricata 인라인(NFQUEUE ${IPS_QUEUE}) + ET Open
+After=network-online.target secgw-nft.service
+Requires=secgw-nft.service
+
+[Service]
+# 2단계 교훈: 체크섬 오프로드 환경에서 체크섬 경보가 쏟아지지 않게 checksum-validation=no
+Slice=secgw.slice
+ExecStartPre=/usr/bin/suricata -T -c /etc/suricata/suricata.yaml --include ${SECGW_ETC}/suricata-secgw.yaml -q ${IPS_QUEUE} --set "vars.address-groups.HOME_NET=${HOME_NET}" --set "vars.address-groups.EXTERNAL_NET=!$$$$HOME_NET" --set stream.checksum-validation=no --set stream.midstream=true
+ExecStart=/usr/bin/suricata -c /etc/suricata/suricata.yaml --include ${SECGW_ETC}/suricata-secgw.yaml -q ${IPS_QUEUE} --set "vars.address-groups.HOME_NET=${HOME_NET}" --set "vars.address-groups.EXTERNAL_NET=!$$$$HOME_NET" --set stream.checksum-validation=no --set stream.midstream=true --user suricata --group suricata
+ExecReload=/bin/kill -USR2 $$MAINPID
+CPUQuota=${IPS_CPU}
+MemoryHigh=${IPS_MEM_HIGH}
+MemoryMax=${IPS_MEM}
+TasksMax=256
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

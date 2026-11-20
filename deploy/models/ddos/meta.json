@@ -1,0 +1,70 @@
+{
+  "service": "ddos-ai",
+  "created_utc": "2026-11-20T06:26:54Z",
+  "dataset": "CIC-IDS2017 Wednesday+Friday",
+  "versions": {
+    "python": "3.13.16",
+    "numpy": "2.4.6",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.6.1",
+    "torch": "2.14.1+cu130",
+    "gpu": "Tesla T4",
+    "suricata": "8.0.8 RELEASE"
+  },
+  "window_sec": 10,
+  "features": [
+    "new_conn",
+    "concurrent",
+    "srv_new_conn",
+    "srv_concurrent",
+    "dst_ips",
+    "dst_ports",
+    "no_reply",
+    "syn_only",
+    "rst",
+    "pkts_ts_mean",
+    "pkts_tc_mean",
+    "bytes_ts_mean",
+    "bytes_tc_mean",
+    "bytes_ts_sum",
+    "dur_mean",
+    "dur_max"
+  ],
+  "input": "같은 출발지 IP가 WIN초 동안 시작한 연결(Suricata flow 기록)을 묶은 통계 1건 = 한 판정",
+  "thresholds": {
+    "block": 2.326583914434196e-05,
+    "block_fpr_1pct": 1.4833618137773756e-06
+  },
+  "rule_thresholds": {
+    "default": {
+      "rate": 100,
+      "conc": 50
+    },
+    "tuned_val_fpr_0.1pct": {
+      "rate": 393.0,
+      "conc": 335.0
+    },
+    "meaning": "rate=한 서버로 WIN초 동안 새 연결 수, conc=한 서버에 동시 연결 수"
+  },
+  "expected_test": {
+    "R1 또는 R2 (기본)": {
+      "detection_rate": 0.978,
+      "false_positive_rate": 0.13869
+    },
+    "R1 또는 R2 (튜닝)": {
+      "detection_rate": 0.8681,
+      "false_positive_rate": 0.00252
+    },
+    "A' GBDT(HTTP 제외) @ FPR 1%": {
+      "detection_rate": 0.978,
+      "false_positive_rate": 0.01115
+    },
+    "A' GBDT(HTTP 제외) @ FPR 0.1%": {
+      "detection_rate": 0.978,
+      "false_positive_rate": 0.0009
+    }
+  },
+  "files": {
+    "gbdt_nohttp.joblib": "cfc3504d392aa1b9136bc986f983cfa57bb8d1a8f55bbcd4314c80f7c999d187"
+  }
+}

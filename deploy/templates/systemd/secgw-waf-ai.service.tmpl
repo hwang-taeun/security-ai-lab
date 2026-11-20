@@ -1,0 +1,24 @@
+[Unit]
+Description=secgw WAF AI 게이트 — 문자 CNN(ONNX), 룰 통과 요청 재판정 후 ${BACKEND_URL} 로 전달
+After=network-online.target
+
+[Service]
+Slice=secgw.slice
+User=secgw
+Group=secgw
+EnvironmentFile=${SECGW_ETC}/ai.env
+ExecStart=${SECGW_HOME}/venv/bin/python ${SECGW_HOME}/ai/waf_ai_gate.py --bundle ${SECGW_HOME}/models/waf
+CPUQuota=${WAF_AI_CPU}
+MemoryHigh=${WAF_AI_MEM_HIGH}
+MemoryMax=${WAF_AI_MEM}
+TasksMax=64
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadOnlyPaths=${SECGW_HOME}
+
+[Install]
+WantedBy=multi-user.target

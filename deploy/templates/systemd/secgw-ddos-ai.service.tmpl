@@ -1,0 +1,26 @@
+[Unit]
+Description=secgw DDoS AI — 출발지 IP × 10초 구간을 GBDT로 판정해 nftables ai_block 에 추가
+After=secgw-ips.service secgw-nft.service
+Requires=secgw-nft.service
+
+[Service]
+Slice=secgw.slice
+User=secgw
+Group=secgw
+EnvironmentFile=${SECGW_ETC}/ai.env
+ExecStart=${SECGW_HOME}/venv/bin/python ${SECGW_HOME}/ai/ddos_ai.py --bundle ${SECGW_HOME}/models/ddos --eve ${SECGW_LOG}/eve.json
+AmbientCapabilities=CAP_NET_ADMIN
+CapabilityBoundingSet=CAP_NET_ADMIN
+CPUQuota=${DDOS_AI_CPU}
+MemoryHigh=${DDOS_AI_MEM_HIGH}
+MemoryMax=${DDOS_AI_MEM}
+TasksMax=32
+Restart=on-failure
+RestartSec=5
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadOnlyPaths=${SECGW_HOME} ${SECGW_LOG}
+
+[Install]
+WantedBy=multi-user.target
