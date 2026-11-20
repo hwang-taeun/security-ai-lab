@@ -1,0 +1,10 @@
+family,count,crs_pl1_detect,ai_A_detect,ai_B_detect
+(no CRS match),2319,0.0,0.9698145752479517,0.9642087106511428
+XSS,247,1.0,1.0,1.0
+protocol,237,0.9957805907172996,1.0,1.0
+RCE+SQLi,148,1.0,1.0,1.0
+SQLi,128,1.0,0.9921875,1.0
+method,51,1.0,1.0,1.0
+LFI/path-traversal+RCE+XSS,33,1.0,1.0,1.0
+RCE+XSS,26,1.0,1.0,1.0
+SQLi+XSS,2,1.0,1.0,1.0

@@ -1,0 +1,6 @@
+key,count
+BENIGN + DDoS,56788
+BENIGN + DDoS + PortScan,595
+DDoS + PortScan,384
+BENIGN + PortScan,126
+BENIGN + Bot,14

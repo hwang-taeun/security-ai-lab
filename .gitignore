@@ -1,0 +1,21 @@
+# 데이터셋·대용량 파일 (노트북이 실행 중에 내려받음)
+*.pcap
+*.pcapng
+eve.json
+data/
+waf-lab/
+ids-lab/
+ddos-lab/
+
+# 결과는 풀어서 results/ 에 넣으므로 zip 원본은 제외
+*.zip
+*.tgz
+
+# 노트북·파이썬 부산물
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+
+# 비밀 정보
+.env
+*.env

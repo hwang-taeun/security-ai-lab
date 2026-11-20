@@ -1,0 +1,6 @@
+attack,attack_windows,span_min,R1 또는 R2 (기본),R1 또는 R2 (튜닝),ai_A_flag
+DDoS,119,19.8,0,10,0
+DoS GoldenEye,39,9.8,0,120,0
+DoS Hulk,81,17.7,0,0,0
+DoS Slowhttptest,84,20.0,0,0,0
+DoS slowloris,132,22.0,0,50,0

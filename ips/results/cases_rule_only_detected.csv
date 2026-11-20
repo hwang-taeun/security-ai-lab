@@ -1,0 +1,1 @@
+src_ip,src_port,dest_ip,dest_port,proto,app_proto,attack,pkts_ts,pkts_tc,bytes_ts,bytes_tc,sids,a_score

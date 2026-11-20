@@ -1,0 +1,41 @@
+sid,signature,category,benign_flows,severity
+2013504,ET INFO GNU/Linux APT User-Agent Outbound likely related to package management,Not Suspicious Traffic,343,3
+2027390,ET USER_AGENTS Microsoft Device Metadata Retrieval Client User-Agent,Misc activity,192,3
+2029340,ET INFO TLS Handshake Failure,Potentially Bad Traffic,186,2
+2027757,ET DNS Query for .to TLD,Potentially Bad Traffic,181,2
+2027863,ET INFO Observed DNS Query to .biz TLD,Potentially Bad Traffic,99,2
+2016149,ET INFO Session Traversal Utilities for NAT (STUN Binding Request),Misc activity,92,3
+2027758,ET DNS Query for .cc TLD,Potentially Bad Traffic,67,2
+2016778,ET DNS Query to a *.pw domain - Likely Hostile,Potentially Bad Traffic,56,2
+2047702,ET INFO External IP Lookup Domain (ipify .org) in DNS Lookup,Misc activity,35,3
+2067085,ET INFO NTLM Session Setup Request - Negotiate,Misc activity,32,3
+2036860,ET INFO External IP Lookup Domain (freegeiop .net in DNS lookup),Device Retrieving External IP Address Detected,32,2
+2067086,ET INFO NTLMv1 Session Setup Response - Challenge,Misc activity,32,3
+2067087,ET INFO NTLM Session Setup Request - Auth,Misc activity,32,3
+2025275,ET INFO Windows OS Submitting USB Metadata to Microsoft,Misc activity,17,3
+2012522,ET INFO DNS Query For XXX Adult Site Top Level Domain,Potential Corporate Privacy Violation,14,1
+2014169,ET DNS Query for .su TLD (Soviet Union) Often Malware Related,Potentially Bad Traffic,12,2
+2047703,ET INFO External IP Address Lookup Domain (ipify .org) in TLS SNI,Misc activity,10,3
+2071571,ET INFO Observed Telegram Domain in DNS Lookup (telegram .me),Misc activity,10,3
+2065070,ET INFO Observed RMM Domain in DNS Lookup (pubnub .com),Misc activity,10,3
+2033078,ET INFO Session Traversal Utilities for NAT (STUN Binding Request On Non-Standard High Port),Misc activity,10,3
+2019512,ET INFO Possible IP Check api.ipify.org,Potential Corporate Privacy Violation,10,1
+2012647,ET INFO Dropbox.com Offsite File Backup in Use,Potential Corporate Privacy Violation,9,1
+2050736,ET INFO Tencent Cloud Storage Domain in DNS Lookup (myqcloud .com),Misc activity,9,3
+2053892,ET INFO Suspicious Domain (polyfill .io) in DNS Lookup,Potentially Bad Traffic,8,2
+2053894,ET INFO Pastebin-like Service Domain in DNS Lookup (jsfiddle .net),Misc activity,7,3
+2063117,ET INFO Abused Hosting Domain in DNS Lookup (azurewebsites .net),Misc activity,7,3
+2019401,ET INFO Vulnerable Java Version 1.8.x Detected,Potentially Bad Traffic,5,2
+2011540,ET INFO OpenSSL Demo CA - Internet Widgits Pty (O),Not Suspicious Traffic,4,3
+2053893,ET INFO Suspicious Domain (polyfill .io) in TLS SNI,Potentially Bad Traffic,4,2
+2018959,ET INFO PE EXE or DLL Windows file download HTTP,Potential Corporate Privacy Violation,3,1
+2016150,ET INFO Session Traversal Utilities for NAT (STUN Binding Response),Misc activity,2,3
+2036300,ET HUNTING [TW] Likely Javascript-Obfuscator Usage Observed M1,Misc activity,2,3
+2065081,ET INFO Observed RMM Domain in TLS SNI (pubnub .com),Misc activity,2,3
+2403403,ET CINS Active Threat Intelligence Poor Reputation IP group 104,Misc Attack,2,2
+2032987,ET INFO HTTP Request to a *.tw domain,Potentially Bad Traffic,2,2
+2010937,ET SCAN Suspicious inbound to mySQL port 3306,Potentially Bad Traffic,1,2
+2014519,ET INFO EXE - Served Inline HTTP,Misc activity,1,3
+2013031,ET INFO Python-urllib/ Suspicious User Agent,Attempted Information Leak,1,2
+2035593,ET INFO DropBox User Content Domain (dl .dropboxusercontent .com in TLS SNI),Misc activity,1,3
+2016360,ET INFO JAVA - ClassID,Misc activity,1,3

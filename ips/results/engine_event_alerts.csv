@@ -1,0 +1,25 @@
+signature,BENIGN,Bot,DDoS
+SURICATA Applayer Detect protocol only one direction,202,0,0
+SURICATA Applayer Mismatch protocol both directions,2,0,0
+SURICATA Applayer Wrong direction first Data,81,0,0
+SURICATA HTTP Request abnormal Content-Encoding header,3,0,0
+SURICATA HTTP Response excessive header repetition,7570,0,0
+SURICATA HTTP invalid Range header value,2,0,0
+SURICATA HTTP invalid response chunk len,12,0,0
+SURICATA HTTP too many warnings,3,0,0
+SURICATA HTTP unable to match response to request,235,0,0
+SURICATA Kerberos 5 weak encryption parameters,569,0,0
+SURICATA SMB file overlap,6,0,0
+SURICATA STREAM 3way handshake wrong seq wrong ack,10,0,15
+SURICATA STREAM CLOSEWAIT FIN out of window,1114,31,0
+SURICATA STREAM ESTABLISHED SYNACK resend,2,0,0
+SURICATA STREAM ESTABLISHED invalid ack,7,0,0
+SURICATA STREAM ESTABLISHED packet out of window,1,0,0
+SURICATA STREAM FIN invalid ack,15,0,0
+SURICATA STREAM FIN out of window,718,0,0
+SURICATA STREAM Packet with invalid ack,15,0,0
+SURICATA STREAM Packet with invalid timestamp,1,0,0
+SURICATA STREAM TIMEWAIT ACK with wrong seq,2,0,0
+SURICATA STREAM excessive retransmissions,101,0,0
+SURICATA STREAM reassembly overlap with different data,99,0,0
+SURICATA TCPv4 invalid checksum,1198664,769,79462

@@ -1,0 +1,275 @@
+{
+  "dataset": "CIC-IDS2017 Friday",
+  "pcap_gb": 8.84,
+  "label_stats": {
+    "BENIGN": 266083,
+    "PortScan": 158720,
+    "AMBIGUOUS": 57907,
+    "DDoS": 38087,
+    "UNMATCHED": 1246,
+    "Bot": 1221
+  },
+  "split": {
+    "0": {
+      "test": 53217,
+      "train": 159649,
+      "val": 53217
+    },
+    "1": {
+      "test": 39606,
+      "train": 118817,
+      "val": 39605
+    }
+  },
+  "versions": {
+    "python": "3.13.16",
+    "numpy": "2.4.6",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.6.1",
+    "torch": "2.14.1+cu130",
+    "gpu": "Tesla T4",
+    "suricata": "8.0.8 RELEASE"
+  },
+  "ruleset": {
+    "file": "suricata.rules",
+    "enabled_rules": 53582,
+    "sha256": "c4c0f946deaabbd6",
+    "fetched_utc": "2026-11-20 00:43"
+  },
+  "suricata_speed": {
+    "sec": 226.2,
+    "mbps": 312.6
+  },
+  "train_time_sec": {
+    "A_gbdt": 6.0,
+    "B_mlp": 3.5
+  },
+  "speed_flows_per_s": {
+    "A": 102099.5,
+    "B": 11187229.2
+  },
+  "features": [
+    "proto",
+    "dest_port",
+    "src_port_eph",
+    "pkts_ts",
+    "pkts_tc",
+    "bytes_ts",
+    "bytes_tc",
+    "duration",
+    "bpp_ts",
+    "bpp_tc",
+    "pkt_ratio",
+    "flags_ts",
+    "flags_tc",
+    "app_proto",
+    "state",
+    "reason",
+    "tcp_state",
+    "pps"
+  ],
+  "thresholds": {
+    "A GBDT @ FPR 1%": 2.2937161943931864e-05,
+    "A GBDT @ FPR 0.1%": 0.44614461232568575,
+    "A GBDT @ 룰과 같은 FPR (0.190%)": 0.34507684835042374,
+    "B MLP @ FPR 1%": 0.0020573753863573074,
+    "B MLP @ FPR 0.1%": 0.38468697667121887,
+    "B MLP @ 룰과 같은 FPR (0.190%)": 0.3821241557598114
+  },
+  "case_counts": {
+    "ai_only_detected": 39450,
+    "rule_only_detected": 0,
+    "both_missed": 115,
+    "rule_false_positive": 82,
+    "ai_false_positive": 12
+  },
+  "mlp_best_val_auc": 1.0,
+  "importance_A": {
+    "bpp_ts": 0.1032,
+    "flags_tc": 0.0194,
+    "dest_port": 0.0015,
+    "duration": 0.0012,
+    "bytes_tc": 0.0002,
+    "flags_ts": 0.0001,
+    "pps": 0.0001,
+    "bytes_ts": 0.0,
+    "bpp_tc": 0.0,
+    "pkt_ratio": 0.0,
+    "app_proto": 0.0,
+    "state": 0.0,
+    "pkts_tc": 0.0,
+    "pkts_ts": 0.0,
+    "proto": 0.0,
+    "src_port_eph": 0.0,
+    "tcp_state": -0.0,
+    "reason": -0.0
+  },
+  "comparison": [
+    {
+      "model": "ET 전체",
+      "detection_rate": 0.0012,
+      "false_positive_rate": 0.00265,
+      "precision": 0.246,
+      "f1": 0.0023,
+      "TP": 46,
+      "FN": 39560,
+      "FP": 141,
+      "TN": 53076,
+      "kind": "rule",
+      "speed_flows_per_s": NaN
+    },
+    {
+      "model": "ET 심각도 1–2",
+      "detection_rate": 0.001,
+      "false_positive_rate": 0.00154,
+      "precision": 0.3333,
+      "f1": 0.0021,
+      "TP": 41,
+      "FN": 39565,
+      "FP": 82,
+      "TN": 53135,
+      "kind": "rule",
+      "speed_flows_per_s": NaN
+    },
+    {
+      "model": "ET 심각도 1",
+      "detection_rate": 0.0,
+      "false_positive_rate": 4e-05,
+      "precision": 0.0,
+      "f1": 0.0,
+      "TP": 0,
+      "FN": 39606,
+      "FP": 2,
+      "TN": 53215,
+      "kind": "rule",
+      "speed_flows_per_s": NaN
+    },
+    {
+      "model": "Suricata 전체(이상 룰 포함)",
+      "detection_rate": 0.1938,
+      "false_positive_rate": 0.14875,
+      "precision": 0.4923,
+      "f1": 0.2781,
+      "TP": 7675,
+      "FN": 31931,
+      "FP": 7916,
+      "TN": 45301,
+      "kind": "rule",
+      "speed_flows_per_s": NaN
+    },
+    {
+      "model": "A GBDT @ FPR 1%",
+      "detection_rate": 1.0,
+      "false_positive_rate": 0.01075,
+      "precision": 0.9858,
+      "f1": 0.9928,
+      "TP": 39605,
+      "FN": 1,
+      "FP": 572,
+      "TN": 52645,
+      "kind": "ai",
+      "speed_flows_per_s": 102099.5
+    },
+    {
+      "model": "A GBDT @ FPR 0.1%",
+      "detection_rate": 0.9971,
+      "false_positive_rate": 0.00023,
+      "precision": 0.9997,
+      "f1": 0.9984,
+      "TP": 39491,
+      "FN": 115,
+      "FP": 12,
+      "TN": 53205,
+      "kind": "ai",
+      "speed_flows_per_s": 102099.5
+    },
+    {
+      "model": "A GBDT @ 룰과 같은 FPR (0.190%)",
+      "detection_rate": 0.9979,
+      "false_positive_rate": 0.00092,
+      "precision": 0.9988,
+      "f1": 0.9983,
+      "TP": 39522,
+      "FN": 84,
+      "FP": 49,
+      "TN": 53168,
+      "kind": "ai",
+      "speed_flows_per_s": 102099.5
+    },
+    {
+      "model": "B MLP @ FPR 1%",
+      "detection_rate": 1.0,
+      "false_positive_rate": 0.00994,
+      "precision": 0.9868,
+      "f1": 0.9934,
+      "TP": 39605,
+      "FN": 1,
+      "FP": 529,
+      "TN": 52688,
+      "kind": "ai",
+      "speed_flows_per_s": 11187229.2
+    },
+    {
+      "model": "B MLP @ FPR 0.1%",
+      "detection_rate": 0.9978,
+      "false_positive_rate": 0.001,
+      "precision": 0.9987,
+      "f1": 0.9982,
+      "TP": 39519,
+      "FN": 87,
+      "FP": 53,
+      "TN": 53164,
+      "kind": "ai",
+      "speed_flows_per_s": 11187229.2
+    },
+    {
+      "model": "B MLP @ 룰과 같은 FPR (0.190%)",
+      "detection_rate": 0.9984,
+      "false_positive_rate": 0.00192,
+      "precision": 0.9974,
+      "f1": 0.9979,
+      "TP": 39541,
+      "FN": 65,
+      "FP": 102,
+      "TN": 53115,
+      "kind": "ai",
+      "speed_flows_per_s": 11187229.2
+    },
+    {
+      "model": "Hybrid: ET 심각도1–2 OR A@FPR0.1%",
+      "detection_rate": 0.9971,
+      "false_positive_rate": 0.00177,
+      "precision": 0.9976,
+      "f1": 0.9974,
+      "TP": 39491,
+      "FN": 115,
+      "FP": 94,
+      "TN": 53123,
+      "kind": "hybrid",
+      "speed_flows_per_s": NaN
+    }
+  ],
+  "unseen_attack": [
+    {
+      "attack": "PortScan",
+      "test_flows": 31744,
+      "A_seen": 1.0,
+      "A_unseen": 0.2631,
+      "rule_sev12": 0.0012
+    },
+    {
+      "attack": "DDoS",
+      "test_flows": 7618,
+      "A_seen": 0.9993,
+      "A_unseen": 0.0,
+      "rule_sev12": 0.0005
+    },
+    {
+      "attack": "Bot",
+      "test_flows": 244,
+      "A_seen": 0.5533,
+      "A_unseen": 0.0,
+      "rule_sev12": 0.0
+    }
+  ]
+}

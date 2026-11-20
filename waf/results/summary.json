@@ -1,0 +1,222 @@
+{
+  "dataset": "HTTP DATASET CSIC 2010",
+  "data_stats": {
+    "raw_total": 97065,
+    "raw_normal": 72000,
+    "raw_anomalous": 25065,
+    "unique_total": 34594,
+    "unique_normal": 18640,
+    "unique_anomalous": 15954,
+    "label_conflicts_removed": 0
+  },
+  "split": {
+    "0": {
+      "test": 3728,
+      "train": 11184,
+      "val": 3728
+    },
+    "1": {
+      "test": 3191,
+      "train": 9572,
+      "val": 3191
+    }
+  },
+  "versions": {
+    "python": "3.13.16",
+    "numpy": "2.4.6",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.6.1",
+    "torch": "2.14.1+cu130",
+    "gpu": "Tesla T4",
+    "go": "1.25.14",
+    "coraza": "v3.8.1",
+    "coraza-coreruleset (CRS)": "v4.25.0"
+  },
+  "train_time_sec": {
+    "A_tfidf_lr": 28.5,
+    "B_char_cnn": 28.1
+  },
+  "speed_rps": {
+    "crs": {
+      "PL1": 323.6,
+      "PL2": 182.9,
+      "PL3": 161.6,
+      "PL4": 161.1
+    },
+    "A": 1254.3,
+    "B": 20822.1
+  },
+  "thresholds": {
+    "A TF-IDF+LR @ FPR 1%": 0.3702456522704557,
+    "A TF-IDF+LR @ FPR 0.1%": 0.6959369407404647,
+    "A TF-IDF+LR @ CRS PL1 FPR (0.03%)": 0.7951140139457403,
+    "B Char-CNN @ FPR 1%": 0.6190444231033325,
+    "B Char-CNN @ FPR 0.1%": 0.9836333394050598,
+    "B Char-CNN @ CRS PL1 FPR (0.03%)": 0.9994269609451294
+  },
+  "case_counts": {
+    "ai_only_detected": 2237,
+    "crs_only_detected": 0,
+    "both_missed": 83,
+    "crs_false_positive": 1,
+    "ai_false_positive": 30
+  },
+  "anomalous_no_crs_match_share": 0.7267,
+  "char_cnn_best_val_auc": 0.9978,
+  "comparison": [
+    {
+      "model": "CRS PL1",
+      "detection_rate": 0.273,
+      "false_positive_rate": 0.0003,
+      "precision": 0.9989,
+      "f1": 0.4287,
+      "TP": 871,
+      "FN": 2320,
+      "FP": 1,
+      "TN": 3727,
+      "kind": "rule",
+      "speed_rps": 323.6,
+      "threshold": NaN
+    },
+    {
+      "model": "CRS PL2",
+      "detection_rate": 0.4086,
+      "false_positive_rate": 0.1521,
+      "precision": 0.697,
+      "f1": 0.5152,
+      "TP": 1304,
+      "FN": 1887,
+      "FP": 567,
+      "TN": 3161,
+      "kind": "rule",
+      "speed_rps": 182.9,
+      "threshold": NaN
+    },
+    {
+      "model": "CRS PL3",
+      "detection_rate": 0.7979,
+      "false_positive_rate": 0.7092,
+      "precision": 0.4906,
+      "f1": 0.6076,
+      "TP": 2546,
+      "FN": 645,
+      "FP": 2644,
+      "TN": 1084,
+      "kind": "rule",
+      "speed_rps": 161.6,
+      "threshold": NaN
+    },
+    {
+      "model": "CRS PL4",
+      "detection_rate": 0.9307,
+      "false_positive_rate": 0.9002,
+      "precision": 0.4695,
+      "f1": 0.6241,
+      "TP": 2970,
+      "FN": 221,
+      "FP": 3356,
+      "TN": 372,
+      "kind": "rule",
+      "speed_rps": 161.1,
+      "threshold": NaN
+    },
+    {
+      "model": "A TF-IDF+LR @ FPR 1%",
+      "detection_rate": 0.9777,
+      "false_positive_rate": 0.0072,
+      "precision": 0.9914,
+      "f1": 0.9845,
+      "TP": 3120,
+      "FN": 71,
+      "FP": 27,
+      "TN": 3701,
+      "kind": "ai",
+      "speed_rps": 1254.3,
+      "threshold": 0.370246
+    },
+    {
+      "model": "A TF-IDF+LR @ FPR 0.1%",
+      "detection_rate": 0.8756,
+      "false_positive_rate": 0.0011,
+      "precision": 0.9986,
+      "f1": 0.933,
+      "TP": 2794,
+      "FN": 397,
+      "FP": 4,
+      "TN": 3724,
+      "kind": "ai",
+      "speed_rps": 1254.3,
+      "threshold": 0.695937
+    },
+    {
+      "model": "A TF-IDF+LR @ CRS PL1 FPR (0.03%)",
+      "detection_rate": 0.8032,
+      "false_positive_rate": 0.0005,
+      "precision": 0.9992,
+      "f1": 0.8905,
+      "TP": 2563,
+      "FN": 628,
+      "FP": 2,
+      "TN": 3726,
+      "kind": "ai",
+      "speed_rps": 1254.3,
+      "threshold": 0.795114
+    },
+    {
+      "model": "B Char-CNN @ FPR 1%",
+      "detection_rate": 0.974,
+      "false_positive_rate": 0.008,
+      "precision": 0.9904,
+      "f1": 0.9821,
+      "TP": 3108,
+      "FN": 83,
+      "FP": 30,
+      "TN": 3698,
+      "kind": "ai",
+      "speed_rps": 20822.1,
+      "threshold": 0.619044
+    },
+    {
+      "model": "B Char-CNN @ FPR 0.1%",
+      "detection_rate": 0.9185,
+      "false_positive_rate": 0.0003,
+      "precision": 0.9997,
+      "f1": 0.9574,
+      "TP": 2931,
+      "FN": 260,
+      "FP": 1,
+      "TN": 3727,
+      "kind": "ai",
+      "speed_rps": 20822.1,
+      "threshold": 0.983633
+    },
+    {
+      "model": "B Char-CNN @ CRS PL1 FPR (0.03%)",
+      "detection_rate": 0.7747,
+      "false_positive_rate": 0.0,
+      "precision": 1.0,
+      "f1": 0.873,
+      "TP": 2472,
+      "FN": 719,
+      "FP": 0,
+      "TN": 3728,
+      "kind": "ai",
+      "speed_rps": 20822.1,
+      "threshold": 0.999427
+    },
+    {
+      "model": "Hybrid: CRS PL1 OR B@FPR0.1%",
+      "detection_rate": 0.9201,
+      "false_positive_rate": 0.0005,
+      "precision": 0.9993,
+      "f1": 0.9581,
+      "TP": 2936,
+      "FN": 255,
+      "FP": 2,
+      "TN": 3726,
+      "kind": "hybrid",
+      "speed_rps": NaN,
+      "threshold": NaN
+    }
+  ]
+}

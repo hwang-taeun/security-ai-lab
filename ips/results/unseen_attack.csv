@@ -1,0 +1,4 @@
+attack,test_flows,A_seen,A_unseen,rule_sev12
+PortScan,31744,1.0,0.2631,0.0012
+DDoS,7618,0.9993,0.0,0.0005
+Bot,244,0.5533,0.0,0.0

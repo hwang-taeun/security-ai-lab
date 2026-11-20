@@ -1,0 +1,524 @@
+{
+  "dataset": "CIC-IDS2017 Wednesday+Friday",
+  "window_sec": 10,
+  "pcap_gb": {
+    "Wednesday": 13.42,
+    "Friday": 8.84
+  },
+  "suricata_sec": {
+    "Wednesday": 89.4,
+    "Friday": 61.6
+  },
+  "flow_labels": {
+    "BENIGN": 559540,
+    "PortScan": 158846,
+    "DDoS": 95854,
+    "DoS GoldenEye": 94006,
+    "DoS Hulk": 80681,
+    "UNMATCHED": 2016,
+    "Bot": 1235,
+    "DoS Slowhttptest": 8,
+    "DoS slowloris": 2,
+    "Heartbleed": 1
+  },
+  "window_stats": {
+    "BENIGN": 27792,
+    "EXCLUDED_OTHER": 1232,
+    "DoS slowloris": 132,
+    "DDoS": 119,
+    "DoS Slowhttptest": 84,
+    "DoS Hulk": 81,
+    "DoS GoldenEye": 39,
+    "EXCLUDED_EDGE": 1
+  },
+  "split": {
+    "BENIGN": {
+      "test": 5559,
+      "train": 16675,
+      "val": 5558
+    },
+    "DDoS": {
+      "test": 24,
+      "train": 71,
+      "val": 24
+    },
+    "DoS GoldenEye": {
+      "test": 7,
+      "train": 24,
+      "val": 8
+    },
+    "DoS Hulk": {
+      "test": 16,
+      "train": 49,
+      "val": 16
+    },
+    "DoS Slowhttptest": {
+      "test": 17,
+      "train": 50,
+      "val": 17
+    },
+    "DoS slowloris": {
+      "test": 27,
+      "train": 79,
+      "val": 26
+    }
+  },
+  "schedule_check": [
+    {
+      "day": "Wednesday",
+      "attack": "DoS slowloris",
+      "minutes": 24,
+      "flows_in_window": 3894,
+      "flows_before": 0
+    },
+    {
+      "day": "Wednesday",
+      "attack": "DoS Slowhttptest",
+      "minutes": 22,
+      "flows_in_window": 4219,
+      "flows_before": 2724
+    },
+    {
+      "day": "Wednesday",
+      "attack": "DoS Hulk",
+      "minutes": 18,
+      "flows_in_window": 158955,
+      "flows_before": 2229
+    },
+    {
+      "day": "Wednesday",
+      "attack": "DoS GoldenEye",
+      "minutes": 14,
+      "flows_in_window": 7496,
+      "flows_before": 43055
+    },
+    {
+      "day": "Friday",
+      "attack": "DDoS",
+      "minutes": 21,
+      "flows_in_window": 95683,
+      "flows_before": 0
+    }
+  ],
+  "versions": {
+    "python": "3.13.16",
+    "numpy": "2.4.6",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.6.1",
+    "torch": "2.14.1+cu130",
+    "gpu": "Tesla T4",
+    "suricata": "8.0.8 RELEASE"
+  },
+  "thresholds_default": {
+    "rate": 100,
+    "conc": 50
+  },
+  "thresholds_tuned": {
+    "rate": 393.0,
+    "conc": 335.0
+  },
+  "ai_thresholds": {
+    "A GBDT @ FPR 1%": 7.5337494559292e-06,
+    "A GBDT @ FPR 0.1%": 0.00025760383068804886,
+    "A' GBDT(HTTP 제외) @ FPR 1%": 1.4833618137773756e-06,
+    "A' GBDT(HTTP 제외) @ FPR 0.1%": 2.326583914434196e-05,
+    "B MLP @ FPR 1%": 0.03415745124220848,
+    "B MLP @ FPR 0.1%": 0.14575038850307465
+  },
+  "train_time_sec": {
+    "A_gbdt": 0.6,
+    "B_mlp": 2.6
+  },
+  "importance_A": {
+    "http": 0.0395,
+    "srv_concurrent": 0.0007,
+    "syn_only": 0.0006,
+    "dst_ips": 0.0006,
+    "pkts_ts_mean": 0.0004,
+    "bytes_ts_sum": 0.0003,
+    "new_conn": 0.0002,
+    "bytes_ts_mean": 0.0001,
+    "no_reply": 0.0001,
+    "dur_mean": 0.0001,
+    "rst": 0.0,
+    "srv_new_conn": 0.0,
+    "dst_ports": 0.0,
+    "pkts_tc_mean": -0.0,
+    "bytes_tc_mean": -0.0,
+    "dur_max": -0.0002,
+    "concurrent": -0.0002
+  },
+  "comparison": [
+    {
+      "model": "R1 새 연결 (기본)",
+      "detection_rate": 0.5275,
+      "false_positive_rate": 0.03256,
+      "precision": 0.2096,
+      "f1": 0.3,
+      "TP": 48,
+      "FN": 43,
+      "FP": 181,
+      "TN": 5378,
+      "kind": "rule"
+    },
+    {
+      "model": "R2 동시 연결 (기본)",
+      "detection_rate": 0.967,
+      "false_positive_rate": 0.11153,
+      "precision": 0.1243,
+      "f1": 0.2203,
+      "TP": 88,
+      "FN": 3,
+      "FP": 620,
+      "TN": 4939,
+      "kind": "rule"
+    },
+    {
+      "model": "R1 또는 R2 (기본)",
+      "detection_rate": 0.978,
+      "false_positive_rate": 0.13869,
+      "precision": 0.1035,
+      "f1": 0.1872,
+      "TP": 89,
+      "FN": 2,
+      "FP": 771,
+      "TN": 4788,
+      "kind": "rule"
+    },
+    {
+      "model": "R1 새 연결 (튜닝)",
+      "detection_rate": 0.4286,
+      "false_positive_rate": 0.0009,
+      "precision": 0.8864,
+      "f1": 0.5778,
+      "TP": 39,
+      "FN": 52,
+      "FP": 5,
+      "TN": 5554,
+      "kind": "rule"
+    },
+    {
+      "model": "R2 동시 연결 (튜닝)",
+      "detection_rate": 0.7033,
+      "false_positive_rate": 0.0018,
+      "precision": 0.8649,
+      "f1": 0.7758,
+      "TP": 64,
+      "FN": 27,
+      "FP": 10,
+      "TN": 5549,
+      "kind": "rule"
+    },
+    {
+      "model": "R1 또는 R2 (튜닝)",
+      "detection_rate": 0.8681,
+      "false_positive_rate": 0.00252,
+      "precision": 0.8495,
+      "f1": 0.8587,
+      "TP": 79,
+      "FN": 12,
+      "FP": 14,
+      "TN": 5545,
+      "kind": "rule"
+    },
+    {
+      "model": "A GBDT @ FPR 1%",
+      "detection_rate": 0.989,
+      "false_positive_rate": 0.00827,
+      "precision": 0.6618,
+      "f1": 0.793,
+      "TP": 90,
+      "FN": 1,
+      "FP": 46,
+      "TN": 5513,
+      "kind": "ai"
+    },
+    {
+      "model": "A GBDT @ FPR 0.1%",
+      "detection_rate": 0.989,
+      "false_positive_rate": 0.00054,
+      "precision": 0.9677,
+      "f1": 0.9783,
+      "TP": 90,
+      "FN": 1,
+      "FP": 3,
+      "TN": 5556,
+      "kind": "ai"
+    },
+    {
+      "model": "A' GBDT(HTTP 제외) @ FPR 1%",
+      "detection_rate": 0.978,
+      "false_positive_rate": 0.01115,
+      "precision": 0.5894,
+      "f1": 0.7355,
+      "TP": 89,
+      "FN": 2,
+      "FP": 62,
+      "TN": 5497,
+      "kind": "ai"
+    },
+    {
+      "model": "A' GBDT(HTTP 제외) @ FPR 0.1%",
+      "detection_rate": 0.978,
+      "false_positive_rate": 0.0009,
+      "precision": 0.9468,
+      "f1": 0.9622,
+      "TP": 89,
+      "FN": 2,
+      "FP": 5,
+      "TN": 5554,
+      "kind": "ai"
+    },
+    {
+      "model": "B MLP @ FPR 1%",
+      "detection_rate": 0.967,
+      "false_positive_rate": 0.01043,
+      "precision": 0.6027,
+      "f1": 0.7426,
+      "TP": 88,
+      "FN": 3,
+      "FP": 58,
+      "TN": 5501,
+      "kind": "ai"
+    },
+    {
+      "model": "B MLP @ FPR 0.1%",
+      "detection_rate": 0.967,
+      "false_positive_rate": 0.00018,
+      "precision": 0.9888,
+      "f1": 0.9778,
+      "TP": 88,
+      "FN": 3,
+      "FP": 1,
+      "TN": 5558,
+      "kind": "ai"
+    },
+    {
+      "model": "Hybrid: R1 또는 R2(튜닝) OR A@0.1%",
+      "detection_rate": 0.989,
+      "false_positive_rate": 0.00306,
+      "precision": 0.8411,
+      "f1": 0.9091,
+      "TP": 90,
+      "FN": 1,
+      "FP": 17,
+      "TN": 5542,
+      "kind": "hybrid"
+    }
+  ],
+  "webserver_view": [
+    {
+      "model": "R1 또는 R2 (기본)",
+      "detection_rate": 0.978,
+      "false_positive_rate": 0.02079,
+      "precision": 0.899,
+      "f1": 0.9368,
+      "TP": 89,
+      "FN": 2,
+      "FP": 10,
+      "TN": 471
+    },
+    {
+      "model": "R1 또는 R2 (튜닝)",
+      "detection_rate": 0.8681,
+      "false_positive_rate": 0.00208,
+      "precision": 0.9875,
+      "f1": 0.924,
+      "TP": 79,
+      "FN": 12,
+      "FP": 1,
+      "TN": 480
+    },
+    {
+      "model": "A GBDT @ FPR 0.1%",
+      "detection_rate": 0.989,
+      "false_positive_rate": 0.0,
+      "precision": 1.0,
+      "f1": 0.9945,
+      "TP": 90,
+      "FN": 1,
+      "FP": 0,
+      "TN": 481
+    },
+    {
+      "model": "A' GBDT(HTTP 제외) @ FPR 0.1%",
+      "detection_rate": 0.978,
+      "false_positive_rate": 0.0,
+      "precision": 1.0,
+      "f1": 0.9889,
+      "TP": 89,
+      "FN": 2,
+      "FP": 0,
+      "TN": 481
+    }
+  ],
+  "by_attack": [
+    {
+      "attack": "BENIGN",
+      "windows": 5559,
+      "srv_new_conn_med": 2.0,
+      "srv_concurrent_med": 1.0,
+      "dur_mean_med": 1.348313808441162,
+      "R1_default": 0.03255981291599209,
+      "R2_default": 0.11153085087245908,
+      "rule_default": 0.13869400971397733,
+      "rule_tuned": 0.0025184385680877856,
+      "ai_A": 0.0005396654074473826,
+      "ai_A_nohttp": 0.0008994423457456377
+    },
+    {
+      "attack": "DDoS",
+      "windows": 24,
+      "srv_new_conn_med": 823.0,
+      "srv_concurrent_med": 523.5,
+      "dur_mean_med": 6.838669118864361,
+      "R1_default": 1.0,
+      "R2_default": 1.0,
+      "rule_default": 1.0,
+      "rule_tuned": 1.0,
+      "ai_A": 1.0,
+      "ai_A_nohttp": 1.0
+    },
+    {
+      "attack": "DoS GoldenEye",
+      "windows": 7,
+      "srv_new_conn_med": 240.0,
+      "srv_concurrent_med": 749.0,
+      "dur_mean_med": 10.99814548989137,
+      "R1_default": 1.0,
+      "R2_default": 1.0,
+      "rule_default": 1.0,
+      "rule_tuned": 1.0,
+      "ai_A": 1.0,
+      "ai_A_nohttp": 1.0
+    },
+    {
+      "attack": "DoS Hulk",
+      "windows": 16,
+      "srv_new_conn_med": 2449.0,
+      "srv_concurrent_med": 88.0,
+      "dur_mean_med": 0.6855320755075425,
+      "R1_default": 0.875,
+      "R2_default": 0.9375,
+      "rule_default": 1.0,
+      "rule_tuned": 0.875,
+      "ai_A": 1.0,
+      "ai_A_nohttp": 1.0
+    },
+    {
+      "attack": "DoS Slowhttptest",
+      "windows": 17,
+      "srv_new_conn_med": 2.0,
+      "srv_concurrent_med": 334.0,
+      "dur_mean_med": 52.359780073165894,
+      "R1_default": 0.17647058823529413,
+      "R2_default": 0.8823529411764706,
+      "rule_default": 0.8823529411764706,
+      "rule_tuned": 0.47058823529411764,
+      "ai_A": 0.9411764705882353,
+      "ai_A_nohttp": 0.8823529411764706
+    },
+    {
+      "attack": "DoS slowloris",
+      "windows": 27,
+      "srv_new_conn_med": 25.0,
+      "srv_concurrent_med": 430.0,
+      "dur_mean_med": 61.64079749584198,
+      "R1_default": 0.0,
+      "R2_default": 1.0,
+      "rule_default": 1.0,
+      "rule_tuned": 0.9629629629629629,
+      "ai_A": 1.0,
+      "ai_A_nohttp": 1.0
+    }
+  ],
+  "unseen_attack": [
+    {
+      "attack": "DDoS",
+      "test_windows": 24,
+      "A_seen": 1.0,
+      "A_unseen": 1.0,
+      "A_nohttp_unseen": 1.0,
+      "rule_default": 1.0,
+      "rule_tuned": 1.0
+    },
+    {
+      "attack": "DoS GoldenEye",
+      "test_windows": 7,
+      "A_seen": 1.0,
+      "A_unseen": 1.0,
+      "A_nohttp_unseen": 1.0,
+      "rule_default": 1.0,
+      "rule_tuned": 1.0
+    },
+    {
+      "attack": "DoS Hulk",
+      "test_windows": 16,
+      "A_seen": 1.0,
+      "A_unseen": 1.0,
+      "A_nohttp_unseen": 1.0,
+      "rule_default": 1.0,
+      "rule_tuned": 0.875
+    },
+    {
+      "attack": "DoS Slowhttptest",
+      "test_windows": 17,
+      "A_seen": 0.9412,
+      "A_unseen": 0.9412,
+      "A_nohttp_unseen": 0.8824,
+      "rule_default": 0.8824,
+      "rule_tuned": 0.4706
+    },
+    {
+      "attack": "DoS slowloris",
+      "test_windows": 27,
+      "A_seen": 1.0,
+      "A_unseen": 1.0,
+      "A_nohttp_unseen": 1.0,
+      "rule_default": 1.0,
+      "rule_tuned": 0.963
+    }
+  ],
+  "time_to_detect": [
+    {
+      "attack": "DDoS",
+      "attack_windows": 119,
+      "span_min": 19.8,
+      "R1 또는 R2 (기본)": 0,
+      "R1 또는 R2 (튜닝)": 10,
+      "ai_A_flag": 0
+    },
+    {
+      "attack": "DoS GoldenEye",
+      "attack_windows": 39,
+      "span_min": 9.8,
+      "R1 또는 R2 (기본)": 0,
+      "R1 또는 R2 (튜닝)": 120,
+      "ai_A_flag": 0
+    },
+    {
+      "attack": "DoS Hulk",
+      "attack_windows": 81,
+      "span_min": 17.7,
+      "R1 또는 R2 (기본)": 0,
+      "R1 또는 R2 (튜닝)": 0,
+      "ai_A_flag": 0
+    },
+    {
+      "attack": "DoS Slowhttptest",
+      "attack_windows": 84,
+      "span_min": 20.0,
+      "R1 또는 R2 (기본)": 0,
+      "R1 또는 R2 (튜닝)": 0,
+      "ai_A_flag": 0
+    },
+    {
+      "attack": "DoS slowloris",
+      "attack_windows": 132,
+      "span_min": 22.0,
+      "R1 또는 R2 (기본)": 0,
+      "R1 또는 R2 (튜닝)": 50,
+      "ai_A_flag": 0
+    }
+  ]
+}
