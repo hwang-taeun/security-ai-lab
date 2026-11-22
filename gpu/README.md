@@ -1,4 +1,4 @@
-# 04. CPU vs GPU 성능 비교
+# 5단계 · CPU vs GPU 성능 비교
 
 1~3단계(WAF · IPS · DDoS) 탐지 모델을 **같은 데이터, 같은 하이퍼파라미터**로 CPU와 GPU에서 학습·추론해
 학습 시간, 추론 처리량, 단건 지연 시간을 비교하고 목표 트래픽 기준 **필요 자원(용량 산정)** 을 계산한다.
@@ -6,8 +6,8 @@
 ## 파일 구성
 
 ```
-04-gpu-benchmark/
-├── 04_cpu_vs_gpu_benchmark.ipynb   # Colab 노트북 (실행 본체)
+gpu/
+├── gpu_lab_phase5.ipynb            # Colab 노트북 (실행 본체)
 ├── README.md                       # 구조·실행 방법 (이 문서)
 ├── NOTES.md                        # 코드 설명·측정 시 주의사항
 └── results/                        # 노트북 실행 후 다운로드한 결과를 압축 해제
